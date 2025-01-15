@@ -1,7 +1,7 @@
 import React from "react";
 import css from "./AuthLayout.module.css";
 import VectorBg from "Images/vector.png";
-import Banana from "Images/Banana.png";
+import banana from "Images/banana.png";
 import Leaves from "Images/Leaves.png";
 import Strawberry from "Images/Strawberry.png";
 import LeavesTablet from "Images/LeavesTablet.png";
@@ -15,7 +15,7 @@ function AuthLayout({ children }) {
       </div>
         <div className={css.imagesContainer}>
       <img src={VectorBg} alt="vector" className={css.vectorBg} />
-      <img src={Banana} alt="banana" className={css.bananaImg} />
+      <img src={banana} alt="banana" className={css.bananaImg} />
       <img src={Strawberry} alt="strawberry" className={css.strawberryImg} />
       <img src={Leaves} alt="leaves" className={css.leavesImg} />
       <img src={LeavesTablet} alt="leaves small" className={css.leavesTabletImg} />
