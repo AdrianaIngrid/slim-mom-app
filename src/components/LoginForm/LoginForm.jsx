@@ -4,6 +4,8 @@ import { loginSchema } from './LoginSchema';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { login } from '../AREDUX/Auth/operations';
+import AuthLayout from 'components/AuthLayout/AuthLayout';
+import css from "./LoginForm.module.css"
 
 
 const LoginForm = () => {
@@ -15,10 +17,14 @@ const LoginForm = () => {
     
     const response =  await dispatch(login(values));
     console.log('Full server response:', response);
- 
+    if (response.error) {
+      console.error('Login error:', response.error);
+      alert('Login failed! Please check your credentials and try again.');
+      return; 
+    }
     
       alert('Login successful!');
-      navigate('/dashboard'); // Redirecționare după login
+      navigate('/dashboard'); 
     } catch (error) {
       console.error('Login error:', error);
       alert('Login failed! Please check your credentials and try again.');
@@ -29,6 +35,7 @@ const LoginForm = () => {
   };
 
   return (
+   < AuthLayout>
     <Formik
       initialValues={{ email: '', password: '' }}
       validationSchema={loginSchema}
@@ -37,39 +44,43 @@ const LoginForm = () => {
       onSubmit={handleSubmit}
     >
       {({ isSubmitting }) => (
-        <Form className="login-form">
-          <div>
-            <p>Log In</p>
-            <label htmlFor="email">Email</label>
+        <Form>
+          <div >
+          <div className={css.formElements}>
+            <p className={css.LoginW}>Log In</p>
+            <label htmlFor="email"className={css.labelForm}>Email</label>
             <Field
               type="email"
               name="email"
               id="email"
-              placeholder="Enter your email"
+              placeholder="Email*"
               autoComplete="email"
+              className ={css.loginField}
             />
-            <ErrorMessage name="email" component="div" className="error" />
+            <ErrorMessage name="email" component="div" className={css.error} />
           </div>
 
           <div>
-            <label htmlFor="password">Password</label>
+            <label htmlFor="password" className={css.labelForm}>Password</label>
             <Field
               type="password"
               name="password"
               id="password"
-              placeholder="Enter your password"
+              placeholder="Pasword*"
               autoComplete="current-password"
+              className ={css.loginField}
             />
-            <ErrorMessage name="password" component="div" className="error" />
+            <ErrorMessage name="password" component="div" className={css.error} />
           </div>
-
-          <button type="submit" disabled={isSubmitting}>
+          </div>
+          <button type="submit" disabled={isSubmitting} className={css.loginBtnPgLogin}>
             {isSubmitting ? 'Logging in...' : 'Login'}
           </button>
-          <button type='button' onClick={()=> navigate("/register") }>Register</button>
+          <button type='button' onClick={()=> navigate("/register") } className={css.RegLoginPgBtn}>Register</button>
         </Form>
       )}
     </Formik>
+    </AuthLayout>
   );
 };
 

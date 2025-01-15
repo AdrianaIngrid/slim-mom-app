@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import ModalDailyCalories from "../ModalDailyCalories/ModalDailyCalories";
 import css from "./Form.module.css";
+import AuthLayout from "components/AuthLayout/AuthLayout";
 function Form() {
   const [formData, setFormData] = useState({
     height: "",
@@ -41,6 +42,7 @@ function Form() {
         }),
       });
       const data = await response.json();
+      console.log('Saved daily rate:', data.data.dailyCalories);
       setResults(data);
       setIsModalOpen(true);
     } catch (error) {
@@ -55,8 +57,10 @@ function Form() {
     navigate("/register");
   };
   return (
+ <AuthLayout>
+     
     <div className={css.divForm}>
-      <h2>Calculate your daily calorie intake right now</h2>
+      <h2 className={css.titleForm}>Calculate your daily calorie intake right now</h2>
     <form className={css.formDates} onSubmit={handleSubmit}>
       
       <input
@@ -116,6 +120,7 @@ function Form() {
             value="2"
             checked={formData.bloodType === 2}
             onChange={handleChange}
+            className={css.inputRadio}
           />
           2
         </label>
@@ -126,6 +131,7 @@ function Form() {
             value="3"
             checked={formData.bloodType === 3}
             onChange={handleChange}
+            className={css.inputRadio}
           />
           3
         </label>
@@ -136,6 +142,7 @@ function Form() {
             value="4"
             checked={formData.bloodType === 4}
             onChange={handleChange}
+            className={css.inputRadio}
           />
           4
         </label>
@@ -151,6 +158,7 @@ function Form() {
         results={results}
       />
       </div>
+      </AuthLayout>
   );
 }
 

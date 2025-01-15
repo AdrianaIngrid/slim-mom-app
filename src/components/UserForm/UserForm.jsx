@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import SummaryPanel from "components/SummaryPanel/SummaryPanel";
-import css from "../Form/Form.module.css";
+import css from "./UserForm.module.css";
 function UserForm() {
   const [isLoading, setIsLoading] = useState(false);
   const [summary, setSummary] = useState({
     left: 0,
     consumed: 0,
-    dailyRate: 0,
-    percentOfNormal: 0,
+    dailyCalories: 0,
+    percentageOfNormal: 0,
   });
   const [foodNotRecommended, setFoodNotRecommended] = useState([]);
  
@@ -21,8 +21,8 @@ function UserForm() {
     consumed: 0,
     error: null,
   });
-  
-  const [results, setResults] = useState(null);
+ 
+ 
   const navigate = useNavigate();
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -50,6 +50,7 @@ function UserForm() {
       setIsLoading(false);
       return;
     }
+    
   
     try {
       const response = await fetch('http://localhost:3000/api/calculate', {
@@ -57,18 +58,19 @@ function UserForm() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
       })
-      const data = await response.json();
+      const dataResponse = await response.json();
       setSummary({
-        left: data.left || 0,
-        consumed: data.consumed || 0,
-        dailyRate: data.dailyRate || 0,
-        percentOfNormal: data.percentOfNormal || 0,
+        left: dataResponse.data.left || 0,
+        consumed: dataResponse.data.consumed || 0,
+        dailyCalories: dataResponse.data.dailyCalories || 0,
+        percentageOfNormal: dataResponse.data.percentageOfNormal || 0,
       });
   
-      setFoodNotRecommended(data.foodNotRecommended || []);
-      setResults(data);
+      setFoodNotRecommended(dataResponse.data.notRecommended || []);
+    
      setIsLoading(false);
-     navigate('/diary');
+     
+     navigate('/diary', { state: dataResponse });
     } catch (error) {
       setIsLoading(false);
       console.error('Error calculating daily calories:', error);
@@ -83,8 +85,9 @@ function UserForm() {
 
  
   return (
-    <div className={css.divForm}>
-      <h2>Calculate your daily calorie intake right now</h2>
+    <div className= {css.sideBySide} >
+      <div className={css.userDiv}>
+      <h2 className={css.titleForm}>Calculate your daily calorie intake right now</h2>
       {formData.error && <p className={css.error}>{formData.error}</p>}
       {isLoading && <p>Loading...</p>}
     <form className={css.formDates} onSubmit={handleSubmit}>
@@ -173,7 +176,17 @@ function UserForm() {
       </div>
       <button type="submit"className = {css.startBtn} disabled={isLoading}> {isLoading ? "Calculating..." : "Start losing weight"}</button>
     </form>
-    <SummaryPanel summary={summary} foodNotRecommended={foodNotRecommended} />
+    </div>
+    <SummaryPanel 
+  summary={{
+    left: summary.left || 0,
+    consumed: summary.consumed || 0,
+    dailyCalories: summary.dailyCalories || 0,
+    percentageOfNormal: summary.percentageOfNormal || 0,
+  }} 
+  foodNotRecommended={foodNotRecommended || []} 
+  className={css.summaryPanelUser} 
+/>
   
       </div>
   );

@@ -2,12 +2,12 @@ import { createSlice } from "@reduxjs/toolkit";
 import { login, logout, register } from "../Auth/operations";
 
 const handlePending = (state) => {
-  state.isLoading = true; // Cererea este în desfășurare
-  state.error = null; // Resetează eroarea
+  state.isLoading = true; 
+  state.error = null;
 };
 const handleRejected = (state, action) => {
-  state.isLoading = false; // Cererea a eșuat
-  state.error = action.payload; // Salvează eroarea
+  state.isLoading = false;
+  state.error = action.payload; 
 };
 
 const authSlice = createSlice({
@@ -31,7 +31,7 @@ const authSlice = createSlice({
       .addCase(register.pending, handlePending)
       .addCase(register.rejected, handleRejected)
       .addCase(login.fulfilled, (state, action) => {
-        console.log("Reducer received payload:", action.payload); // Log payload-ul primit
+        console.log("Reducer received payload:", action.payload); 
       
         if (!action.payload) {
           state.isLoading = false;
@@ -44,7 +44,7 @@ const authSlice = createSlice({
           state.error = "Incomplete payload received.";
           state.isLoading = false;
           return;
-        } // Extragem datele
+        }
         state.user = {email, username};
         state.token = token;
         state.isLoggedIn = true;
@@ -52,7 +52,11 @@ const authSlice = createSlice({
         state.isLoading = false;
       })
       .addCase(login.pending, handlePending)
-      .addCase(login.rejected, handleRejected)
+      .addCase(login.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+        state.isLoggedIn = false;
+      })
       .addCase(logout.fulfilled, (state) => {
         state.isLoading = false;
         state.error = null;

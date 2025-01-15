@@ -1,3 +1,14 @@
+.sideBySide {
+  display: flex;
+  gap: 80px;
+  height: 100vh;
+}
+.userDiv {
+  width: 775px;
+}
+.summaryPanelUser {
+  padding: 40px;
+}
 .formDates {
   max-width: 608px;
   margin-left: 16px;
@@ -6,19 +17,11 @@
   flex-direction: row;
   align-items: flex-start;
   gap: 20px;
-
 }
-.divForm {
-  max-width: 763px;
-  max-height: 850px;
-  position: relative;
-  z-index: 10;
 
- 
-}
 .inputFormDates,
 .bloodType {
- width: 240px;
+  width: 240px;
   height: 36px;
   color: #9b9faa;
   outline: none;
@@ -76,20 +79,39 @@
   margin: 0;
 }
 .titleForm {
-  margin: 30px 0 68px 16px;
+  margin: 145px 16px 68px 16px;
   color: #212121;
   font-family: 'Verdana';
   font-weight: 700;
   font-size: 34px;
   line-height: 140%;
-  margin-left: 16px;
 }
 @media screen and (max-width: 428px) {
-  .titleForm{
+  .titleForm {
     font-size: 18px;
+    max-width: 280px;
+    margin-left: 20px;
   }
- 
-  }
-  @media screen and (max-width: 768px) {
+  .formDates {
+    max-width: 320px;
+    margin-left: 20px;
+  
+    flex-direction: column;
+    align-items: flex-start;
    
   }
+  .userDiv {
+    width: 100%;
+  }
+  .titleForm {
+    margin: 32px 20px;
+  
+  }
+  
+}
+@media screen and (max-width: 768px) {
+  .sideBySide {
+    flex-direction: column;
+  }
+}
+

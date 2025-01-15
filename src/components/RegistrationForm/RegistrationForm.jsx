@@ -5,6 +5,8 @@ import { registerSchema } from './RegisterSchema';
 import { register } from '../AREDUX/Auth/operations'; 
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import AuthLayout from 'components/AuthLayout/AuthLayout';
+import css from "./RegistrationForm.module.css";
 
 const RegisterForm = () => {
 
@@ -35,6 +37,7 @@ const RegisterForm = () => {
   };
 
   return (
+    <AuthLayout>
     <Formik
       initialValues={{ username: '', email: '', password: '', confirmPassword: '' }}
       validationSchema={registerSchema}
@@ -43,65 +46,70 @@ const RegisterForm = () => {
       validateOnBlur={false}
     >
       {({ isSubmitting }) => (
-        <Form className="register-form">
+        <Form  className={css.registerForm}>
           <div>
-            <p>Register</p>
-            <label htmlFor="username">Name</label>
+            <p className={css.RegisterW}>Register</p>
+            <label htmlFor="username" className={css.labelForm}>Name</label>
             <Field
               type="text"
               name="username"
               id="username"
-              placeholder="Enter your name"
+              placeholder="Name*"
+              className ={css.registerField}
             />
-            <ErrorMessage name="username" component="div" className="error" />
+            <ErrorMessage name="username" component="div" className={css.error} />
           </div>
 
           <div>
-            <label htmlFor="email">Email</label>
+            <label htmlFor="email" className={css.labelForm} >Email</label>
             <Field
               type="email"
               name="email"
               id="email"
-              placeholder="Enter your email"
+              placeholder="Email*"
+              className ={css.registerField}
             />
-            <ErrorMessage name="email" component="div" className="error" />
+            <ErrorMessage name="email" component="div" className={css.error} />
           </div>
 
           <div>
-            <label htmlFor="password">Password</label>
+            <label htmlFor="password" className={css.labelForm}>Password</label>
             <Field
               type="password"
               name="password"
               id="password"
-              placeholder="Enter your password"
+              placeholder="Password*"
+              className ={css.registerField}
             />
-            <ErrorMessage name="password" component="div" className="error" />
+            <ErrorMessage name="password" component="div" className={css.error} />
           </div>
 
           <div>
-            <label htmlFor="confirmPassword">Confirm Password</label>
+            <label htmlFor="confirmPassword" className={css.labelForm}>Confirm Password</label>
             <Field
               type="password"
               name="confirmPassword"
               id="confirmPassword"
               placeholder="Confirm your password"
+              className ={css.registerField}
             />
             <ErrorMessage
               name="confirmPassword"
               component="div"
-              className="error"
+              className={css.error}
             />
           </div>
 
-          <button type="submit" disabled={isSubmitting}>
+          <button type="submit" disabled={isSubmitting} className={css.registerBtnPgRegister}>
             {isSubmitting ? 'Registering...' : 'Register'}
           </button>
           {successMessage && <p className="success">{successMessage}</p>}
-          {errorMessage && <p className="error">{errorMessage}</p>}
-          <button type='button' onClick={()=> navigate("/login") }>Log in</button>
+          {errorMessage && <p className={css.error}>{errorMessage}</p>}
+          <button type='button' onClick={()=> navigate("/login") }className={css.loginRegisterPgBtn}>Log in</button>
         </Form>
       )}
     </Formik>
+    </AuthLayout>
   );
 };
 

@@ -2,20 +2,24 @@ import { configureStore } from "@reduxjs/toolkit";
 import { authReducer } from "./Auth/slice";
 import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage"; 
+import { productsReducer } from "./Products/productSlice";
+import { diaryReducer } from "./DiaryRedux/diarySlice";
 const persistConfig = {
-  key: "auth", // Cheia sub care starea este salvată
-  storage,     // Folosește localStorage pentru salvare
-  whitelist: ["user", "token", "isLoggedIn"], // Salvează doar aceste câmpuri
+  key: "auth", 
+  storage,     
+  whitelist: ["user", "token", "isLoggedIn"], 
 };
 const persistedReducer = persistReducer(persistConfig, authReducer);
 
  const store = configureStore({
   reducer: {
-    auth: persistedReducer,   
+    auth: persistedReducer,
+    products : productsReducer, 
+    diary : diaryReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
-      serializableCheck: false, // Dezactivează verificările pentru Redux Persist
+      serializableCheck: false, 
     }),
 });
 const persistor = persistStore(store);
