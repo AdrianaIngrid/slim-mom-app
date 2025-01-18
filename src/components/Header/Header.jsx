@@ -2,7 +2,7 @@ import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { selectIsLoggedIn, selectUser } from "../AREDUX/Auth/selectors";
 import { logout } from "../AREDUX/Auth/operations";
-import LogoImage from "Images/slimLogo.png";
+import LogoImage from "../../Images/slimLogo.png";
 import { NavLink } from "react-router-dom";
 import { useNavigate } from 'react-router-dom';
 
