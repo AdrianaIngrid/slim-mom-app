@@ -29,7 +29,7 @@ function Header() {
   console.log("Header Component: Rendered with", { isLoggedIn, user });
   return (
     <div className={css.headerDiv}>
-      <img className={css.logoImg} src={logoImage} alt="logoImageSlimMom" />
+      <img  src={logoImage} alt="logoImageSlimMom" className={css.logoImg}/>
     <header className={css.headerH}>
       
       <nav>
