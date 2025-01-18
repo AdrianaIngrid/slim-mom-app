@@ -15,7 +15,7 @@ import { getUserInfo } from "../components/AREDUX/Auth/operations.js";
 
 import css from "./App.module.css";
 import UserForm from "./UserForm/UserForm.jsx";
-import { persistor } from '../components/AREDUX/store.js';
+
 const isProduction = process.env.NODE_ENV === "production";
 const basename = isProduction ? "/slim-mom-app" : "/";
 
@@ -23,9 +23,7 @@ const basename = isProduction ? "/slim-mom-app" : "/";
 
 function App() {
   const dispatch = useDispatch();
-  useEffect(() => {
-    persistor.purge();   // șterge tot ce este persistat
-  }, []);
+ 
   useEffect(() => {
     if (store.getState().auth.token) {
       // Avem un token în Redux (persistat)
