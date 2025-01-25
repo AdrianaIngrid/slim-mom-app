@@ -1,10 +1,10 @@
 import React from "react";
 import css from "./AuthLayout.module.css";
-import VectorBg from "../../Images/vector.png";
-import banana from "Images/banana.png";
-import leaves from "Images/leaves.png";
-import Strawberry from "Images/strawberry.png";
-import LeavesTablet from "Images/leavesTablet.png";
+import VectorBg from "../Images/vector.png";
+import banana from "../Images/banana.png";
+import leaves from "../Images/leaves.png";
+import Strawberry from "../Images/strawberry.png";
+import LeavesTablet from "../Images/leavesTablet.png";
 
 
 function AuthLayout({ children }) {
