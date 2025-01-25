@@ -2,7 +2,7 @@ import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { selectIsLoggedIn, selectUser } from "../AREDUX/Auth/selectors";
 import { logout } from "../AREDUX/Auth/operations";
-import logoImage from "../../Images/slimLogo.png";
+// import logoImage from "../../Images/slimLogo.png";
 import { NavLink } from "react-router-dom";
 import { useNavigate } from 'react-router-dom';
 
@@ -29,7 +29,7 @@ function Header() {
   console.log("Header Component: Rendered with", { isLoggedIn, user });
   return (
     <div className={css.headerDiv}>
-      <img  src={logoImage} alt="logoImageSlimMom" className={css.logoImg}/>
+      {/* <img  src={logoImage} alt="logoImageSlimMom" className={css.logoImg}/> */}
     <header className={css.headerH}>
       
       <nav>
